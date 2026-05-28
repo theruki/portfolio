@@ -5,6 +5,11 @@
   --background: #fffcf7;
   --foreground: #1f2937;
   --font-sans: "Manrope", sans-serif;
+
+  /* Shared tokens so both controls read as one family, on-brand with the hairline dividers. */
+  --control-fill: #0a0a0a;
+  --control-on-fill: #fffcf7;
+  --control-border: rgba(15, 23, 42, 0.1);
 }
 
 html {
@@ -13,6 +18,10 @@ html {
 
 html.dark {
   background: #0f172a;
+
+  --control-fill: #e5e5e5;
+  --control-on-fill: #0f172a;
+  --control-border: rgba(255, 255, 255, 0.1);
 }
 
 html,
@@ -32,18 +41,32 @@ body {
 }
 
 .control-pill {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   border-radius: 9999px;
-  border: 1px solid rgb(229 229 229);
-  background: rgb(229 229 229);
+  border: 1px solid var(--control-border);
+  background: transparent;
   padding: 0.25rem;
 }
 
-.dark .control-pill {
-  border-color: rgb(64 64 64);
-  background: rgb(64 64 64);
+/* Sliding ink indicator — mirrors the theme toggle thumb's translateX glide. */
+.control-pill::before {
+  content: "";
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  height: 2rem;
+  width: 5rem;
+  border-radius: 9999px;
+  background: var(--control-fill);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+  transition: transform 200ms ease;
+}
+
+.control-pill:has([data-lang-button="ja"].control-pill__option--active)::before {
+  transform: translateX(5.5rem);
 }
 
 .control-pill__option {
@@ -54,16 +77,16 @@ body {
   cursor: pointer;
   border-radius: 9999px;
   color: rgb(64 64 64);
-  transition: color 150ms ease;
+  transition: color 200ms ease;
 }
 
 .dark .control-pill__option {
   color: rgb(212 212 212);
 }
 
-.control-pill__option--active {
-  background: linear-gradient(135deg, rgb(37 99 235), rgb(79 70 229));
-  color: white;
+.control-pill__option--active,
+.dark .control-pill__option--active {
+  color: var(--control-on-fill);
 }
 
 .theme-toggle {
@@ -74,14 +97,9 @@ body {
   cursor: pointer;
   align-items: center;
   border-radius: 9999px;
-  border: 1px solid rgb(229 229 229);
-  background: rgb(229 229 229);
+  border: 1px solid var(--control-border);
+  background: transparent;
   padding: 0.25rem;
-}
-
-.dark .theme-toggle {
-  border-color: rgb(64 64 64);
-  background: rgb(64 64 64);
 }
 
 .theme-toggle__thumb {
@@ -93,7 +111,11 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: white;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
+  background: var(--control-fill);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
   transition: transform 200ms ease;
+}
+
+.theme-toggle__thumb svg {
+  color: var(--control-on-fill);
 }
