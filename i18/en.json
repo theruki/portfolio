@@ -1,0 +1,35 @@
+{
+  "resume": {
+    "name": "Haruki Kuriwada",
+    "location": "Tokyo, Japan",
+    "role": "",
+    "summary": "",
+    "projectsNote": "",
+    "sections": {
+      "about": {
+        "title": "About"
+      },
+      "projects": {
+        "title": "Fun"
+      }
+    },
+    "profile": [
+      {
+        "title": "about-1",
+        "body": "I am currently traveling around Japan and other parts of the world."
+      },
+      {
+        "title": "about-2",
+        "body": ""
+      }
+    ],
+    "projects": [
+      {
+        "title": "Hiking",
+        "body": "I go hiking sometimes.",
+        "linkLabel": "(YAMAP Account)",
+        "linkHref": "https://yamap.com/users/5090795"
+      }
+    ]
+  }
+}

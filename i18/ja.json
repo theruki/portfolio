@@ -1,0 +1,35 @@
+{
+  "resume": {
+    "name": "栗和田 玄紀",
+    "location": "東京都",
+    "role": "",
+    "summary": "",
+    "projectsNote": "",
+    "sections": {
+      "about": {
+        "title": "About"
+      },
+      "projects": {
+        "title": "Fun"
+      }
+    },
+    "profile": [
+      {
+        "title": "about-1",
+        "body": "現在は、日本各地や海外を旅しています。"
+      },
+      {
+        "title": "about-2",
+        "body": ""
+      }
+    ],
+    "projects": [
+      {
+        "title": "登山",
+        "body": "たまにハイキングしています。",
+        "linkLabel": "(YAMAPアカウント)",
+        "linkHref": "https://yamap.com/users/5090795"
+      }
+    ]
+  }
+}

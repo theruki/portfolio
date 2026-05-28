@@ -1,0 +1,143 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+    <script is:inline>
+      const savedTheme = localStorage.getItem("theme");
+      const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const theme = savedTheme || (systemPrefersDark ? "dark" : "light");
+      document.documentElement.classList.toggle("dark", theme === "dark");
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.lang = localStorage.getItem("lang") || "en";
+    </script>
+  </head>
+  <body>
+    <main class="flex min-h-screen flex-col items-center">
+      <slot />
+    </main>
+
+    <div class="fixed bottom-7 right-4 z-50 flex items-center gap-4">
+      <div class="control-pill">
+        <button
+          type="button"
+          class="control-pill__option"
+          data-lang-button="en"
+          aria-pressed="false"
+        >
+          EN
+        </button>
+        <button
+          type="button"
+          class="control-pill__option"
+          data-lang-button="ja"
+          aria-pressed="false"
+        >
+          日本語
+        </button>
+      </div>
+
+      <button
+        type="button"
+        class="theme-toggle"
+        aria-label="Toggle dark mode"
+        data-theme-toggle
+      >
+        <span class="theme-toggle__thumb">
+          <svg
+            data-theme-icon="sun"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            class="h-5 w-5 text-yellow-500"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77" />
+          </svg>
+          <svg
+            data-theme-icon="moon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            class="hidden h-5 w-5 text-yellow-500"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3c0 .27-.01.54-.01.81A7 7 0 0 0 20.19 12c.27 0 .54 0 .81-.01Z" />
+          </svg>
+        </span>
+        <span class="pointer-events-none flex w-full items-center justify-between px-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            class="h-5 w-5 text-neutral-400"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77" />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            class="h-5 w-5 text-neutral-400"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3c0 .27-.01.54-.01.81A7 7 0 0 0 20.19 12c.27 0 .54 0 .81-.01Z" />
+          </svg>
+        </span>
+      </button>
+    </div>
+
+    <script is:inline>
+      const applyTheme = (theme) => {
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem("theme", theme);
+
+        const thumb = document.querySelector(".theme-toggle__thumb");
+        const sunIcon = document.querySelector('[data-theme-icon="sun"]');
+        const moonIcon = document.querySelector('[data-theme-icon="moon"]');
+
+        if (thumb instanceof HTMLElement) {
+          thumb.style.transform = theme === "dark" ? "translateX(32px)" : "translateX(2px)";
+        }
+
+        sunIcon?.classList.toggle("hidden", theme === "dark");
+        moonIcon?.classList.toggle("hidden", theme !== "dark");
+      };
+
+      applyTheme(document.documentElement.dataset.theme || "light");
+
+      document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        applyTheme(nextTheme);
+      });
+    </script>
+  </body>
+</html>

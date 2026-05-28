@@ -1,0 +1,99 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #fffcf7;
+  --foreground: #1f2937;
+  --font-sans: "Manrope", sans-serif;
+}
+
+html {
+  background: var(--background);
+}
+
+html.dark {
+  background: #0f172a;
+}
+
+html,
+body {
+  min-height: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  background: transparent;
+}
+
+::selection {
+  background: rgba(15, 23, 42, 0.12);
+}
+
+.control-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgb(229 229 229);
+  background: rgb(229 229 229);
+  padding: 0.25rem;
+}
+
+.dark .control-pill {
+  border-color: rgb(64 64 64);
+  background: rgb(64 64 64);
+}
+
+.control-pill__option {
+  position: relative;
+  z-index: 1;
+  height: 2rem;
+  width: 5rem;
+  cursor: pointer;
+  border-radius: 9999px;
+  color: rgb(64 64 64);
+  transition: color 150ms ease;
+}
+
+.dark .control-pill__option {
+  color: rgb(212 212 212);
+}
+
+.control-pill__option--active {
+  background: linear-gradient(135deg, rgb(37 99 235), rgb(79 70 229));
+  color: white;
+}
+
+.theme-toggle {
+  position: relative;
+  display: flex;
+  height: 2.5rem;
+  width: 4.5rem;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid rgb(229 229 229);
+  background: rgb(229 229 229);
+  padding: 0.25rem;
+}
+
+.dark .theme-toggle {
+  border-color: rgb(64 64 64);
+  background: rgb(64 64 64);
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  height: 1.75rem;
+  width: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: white;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
+  transition: transform 200ms ease;
+}
